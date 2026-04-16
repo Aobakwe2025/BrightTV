@@ -4,6 +4,7 @@ Generates all charts and summary stats needed for the presentation.
 """
 
 import pandas as pd
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
@@ -13,7 +14,7 @@ warnings.filterwarnings("ignore")
 # ─────────────────────────────────────────────
 # 0. LOAD DATA
 # ─────────────────────────────────────────────
-FILE = "/mnt/user-data/uploads/1774896982744_Bright_TV_-Dataset.xlsx"
+FILE = "Bright_TV_-Dataset.xlsx"
 
 df_users = pd.read_excel(FILE, sheet_name="User Profiles")
 df_view  = pd.read_excel(FILE, sheet_name="Viewership")
@@ -88,10 +89,12 @@ plt.rcParams.update({
 })
 
 def save(fig, name):
-    fig.savefig(f"/home/claude/{name}", dpi=150, bbox_inches="tight", facecolor=BG)
+    os.makedirs("charts", exist_ok=True)
+    path = os.path.join("charts", name)
+    fig.savefig(path, dpi=150, bbox_inches="tight", facecolor=BG)
     plt.close(fig)
-    print(f"   💾 Saved {name}")
-
+    print(f"   💾 Saved {path}")
+    
 # ─────────────────────────────────────────────
 # CHART 1 – Sessions per day (time series)
 # ─────────────────────────────────────────────
