@@ -1,0 +1,187 @@
+
+<h2 class="sr-only">BrightTV Q1 2016 Viewership Analytics Dashboard — interactive charts covering KPIs, channel performance, session trends, and growth insights.</h2>
+
+<style>
+:root { --btv-orange: #D85A30; --btv-dark: #2C2C2A; --btv-mid: #5F5E5A; --btv-light: #F1EFE8; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0 0.5rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.25rem; }
+.logo { font-size: 20px; font-weight: 500; color: var(--color-text-primary); letter-spacing: -0.5px; }
+.logo span { color: #D85A30; }
+.badge { font-size: 11px; background: #FAECE7; color: #993C1D; padding: 3px 10px; border-radius: 20px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+.kpi { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+.kpi-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+.kpi-value { font-size: 24px; font-weight: 500; color: var(--color-text-primary); }
+.kpi-sub { font-size: 11px; color: #D85A30; margin-top: 3px; }
+.charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.chart-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.chart-sub { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 12px; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; font-size: 11px; color: var(--color-text-secondary); }
+.legend span { display: flex; align-items: center; gap: 4px; }
+.legend-sq { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.full-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 14px; }
+.heatmap-grid { display: grid; grid-template-columns: 60px repeat(7, 1fr); gap: 3px; font-size: 10px; }
+.hm-cell { height: 22px; border-radius: 3px; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); }
+.hm-label { color: var(--color-text-secondary); display: flex; align-items: center; }
+.insights-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.insight-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.insight-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.insight-item:last-child { border-bottom: none; padding-bottom: 0; }
+.insight-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.insight-text { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.insight-bold { font-weight: 500; color: var(--color-text-primary); }
+.tab-row { display: flex; gap: 6px; margin-bottom: 12px; }
+.tab { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--color-border-tertiary); background: transparent; color: var(--color-text-secondary); cursor: pointer; }
+.tab.active { background: #D85A30; color: #fff; border-color: #D85A30; }
+@media (max-width: 520px) { .charts-row, .insights-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="header">
+  <div class="logo">Bright<span>TV</span> Analytics</div>
+  <div class="badge">Q1 2016 · CVM Report</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-label">Total sessions</div><div class="kpi-value">9,738</div><div class="kpi-sub">Q1 2016</div></div>
+  <div class="kpi"><div class="kpi-label">Active subscribers</div><div class="kpi-value">4,211</div><div class="kpi-sub">of 5,375 registered</div></div>
+  <div class="kpi"><div class="kpi-label">Total watch time</div><div class="kpi-value">1,487h</div><div class="kpi-sub">across all users</div></div>
+  <div class="kpi"><div class="kpi-label">Avg session</div><div class="kpi-value">9.2m</div><div class="kpi-sub">per session</div></div>
+  <div class="kpi"><div class="kpi-label">Channels</div><div class="kpi-value">21</div><div class="kpi-sub">available</div></div>
+</div>
+
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="chart-title">Sessions by day of week</div>
+    <div class="chart-sub">Friday peak · Monday trough</div>
+    <div class="legend">
+      <span><span class="legend-sq" style="background:#D85A30;"></span>Sessions</span>
+    </div>
+    <div style="position:relative;height:200px;"><canvas id="dowChart" role="img" aria-label="Bar chart of sessions by day, Friday highest at 1634, Monday lowest at 928.">Mon: 928, Tue: 1050, Wed: 1120, Thu: 1340, Fri: 1634, Sat: 1380, Sun: 1286.</canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Top channels by sessions</div>
+    <div class="chart-sub">Sports &amp; music dominate</div>
+    <div class="legend">
+      <span><span class="legend-sq" style="background:#378ADD;"></span>Sessions</span>
+      <span><span class="legend-sq" style="background:#1D9E75; border-radius:0; border-left:3px solid #1D9E75; width:3px; height:9px;"></span>Watch time (h)</span>
+    </div>
+    <div style="position:relative;height:200px;"><canvas id="channelChart" role="img" aria-label="Horizontal bar chart of top channels by sessions. SuperSport leads followed by Channel O, Africa Magic, Trace TV, Cartoon Network.">SuperSport: 2100, Channel O: 1650, Africa Magic: 1420, Trace TV: 1180, Cartoon Network: 820.</canvas></div>
+  </div>
+</div>
+
+<div class="full-card">
+  <div class="chart-title">Viewing intensity heatmap — day × hour (SAST)</div>
+  <div class="chart-sub" style="margin-bottom:12px;">Peak: 17:00–21:00 daily · Secondary: weekend 09:00–12:00</div>
+  <div class="heatmap-grid" id="heatmap"></div>
+</div>
+
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="chart-title">Subscriber demographics — gender</div>
+    <div class="chart-sub">Female segment is severely under-represented</div>
+    <div class="legend">
+      <span><span class="legend-sq" style="background:#378ADD;"></span>Male 90%</span>
+      <span><span class="legend-sq" style="background:#D4537E;"></span>Female 10%</span>
+    </div>
+    <div style="position:relative;height:180px;"><canvas id="genderChart" role="img" aria-label="Doughnut chart showing 90% male and 10% female subscribers.">Male: 90%, Female: 10%.</canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Sessions by age group</div>
+    <div class="chart-sub">25–44 males drive the majority</div>
+    <div class="legend">
+      <span><span class="legend-sq" style="background:#D85A30;"></span>Sessions</span>
+    </div>
+    <div style="position:relative;height:180px;"><canvas id="ageChart" role="img" aria-label="Bar chart of sessions by age group. 25-34 and 35-44 are highest.">Under 18: 420, 18-24: 1100, 25-34: 2800, 35-44: 2600, 45-54: 1800, 55+: 1018.</canvas></div>
+  </div>
+</div>
+
+<div class="insights-row">
+  <div class="insight-card">
+    <div class="chart-title" style="margin-bottom:10px;">Key consumption drivers</div>
+    <div class="insight-item"><div class="insight-dot" style="background:#D85A30;"></div><div class="insight-text"><span class="insight-bold">Time of day</span> — Evening prime time (17:00–21:00) drives the majority of sessions; lunch (12:00–13:00) is a secondary spike</div></div>
+    <div class="insight-item"><div class="insight-dot" style="background:#378ADD;"></div><div class="insight-text"><span class="insight-bold">Content type</span> — Sport (SuperSport, ICC Cricket) and music/entertainment dominate watch time</div></div>
+    <div class="insight-item"><div class="insight-dot" style="background:#1D9E75;"></div><div class="insight-text"><span class="insight-bold">Live events</span> — ICC Cricket World Cup spikes in March confirm live events are powerful acquisition drivers</div></div>
+    <div class="insight-item"><div class="insight-dot" style="background:#BA7517;"></div><div class="insight-text"><span class="insight-bold">Geography</span> — Gauteng leads activity; Northern Cape &amp; Free State show untapped rural potential</div></div>
+  </div>
+  <div class="insight-card">
+    <div class="chart-title" style="margin-bottom:10px;">Growth initiatives priority</div>
+    <div class="legend" style="margin-bottom:12px;">
+      <span><span class="legend-sq" style="background:#D85A30;"></span>Impact</span>
+      <span><span class="legend-sq" style="background:#1D9E75;"></span>Effort</span>
+    </div>
+    <div style="position:relative;height:180px;"><canvas id="growthChart" role="img" aria-label="Horizontal bar chart comparing impact vs effort for 6 growth initiatives.">Female Drive: impact 90 effort 40; Rural Expansion: impact 80 effort 70; Youth Tier: impact 75 effort 55; Loyalty Program: impact 70 effort 45; Sports Bundles: impact 85 effort 60; Referral Engine: impact 65 effort 35.</canvas></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+const textColor = isDark ? '#B4B2A9' : '#5F5E5A';
+const baseOpts = { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } } };
+
+new Chart(document.getElementById('dowChart'), {
+  type:'bar',
+  data:{ labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets:[{ data:[928,1050,1120,1340,1634,1380,1286], backgroundColor:['#D85A30','#D85A30','#D85A30','#D85A30','#993C1D','#D85A30','#D85A30'], borderRadius:3 }] },
+  options:{ ...baseOpts, scales:{ x:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } } }, y:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } } } } }
+});
+
+new Chart(document.getElementById('channelChart'), {
+  type:'bar',
+  data:{ labels:['SuperSport','Channel O','Africa Magic','Trace TV','Cartoon Net.'], datasets:[
+    { label:'Sessions', data:[2100,1650,1420,1180,820], backgroundColor:'#378ADD', borderRadius:3 },
+    { label:'Watch Time (h)', data:[410,290,280,190,130], backgroundColor:'#1D9E75', borderRadius:3 }
+  ]},
+  options:{ ...baseOpts, indexAxis:'y', plugins:{ legend:{ display:false } }, scales:{ x:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } } }, y:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } } } } }
+});
+
+new Chart(document.getElementById('genderChart'), {
+  type:'doughnut',
+  data:{ labels:['Male','Female'], datasets:[{ data:[90,10], backgroundColor:['#378ADD','#D4537E'], borderWidth:0 }] },
+  options:{ ...baseOpts, cutout:'70%', plugins:{ legend:{ display:false } } }
+});
+
+new Chart(document.getElementById('ageChart'), {
+  type:'bar',
+  data:{ labels:['<18','18–24','25–34','35–44','45–54','55+'], datasets:[{ data:[420,1100,2800,2600,1800,1018], backgroundColor:'#D85A30', borderRadius:3 }] },
+  options:{ ...baseOpts, scales:{ x:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } } }, y:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } } } } }
+});
+
+new Chart(document.getElementById('growthChart'), {
+  type:'bar',
+  data:{ labels:['Female Drive','Rural Expansion','Youth Tier','Loyalty Program','Sports Bundles','Referral Engine'],
+    datasets:[
+      { label:'Impact', data:[90,80,75,70,85,65], backgroundColor:'#D85A30', borderRadius:3 },
+      { label:'Effort', data:[40,70,55,45,60,35], backgroundColor:'#1D9E75', borderRadius:3 }
+    ]},
+  options:{ ...baseOpts, indexAxis:'y', plugins:{ legend:{ display:false } }, scales:{ x:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:11 } }, max:100 }, y:{ grid:{ color:gridColor }, ticks:{ color:textColor, font:{ size:10 } } } } }
+});
+
+const hm = document.getElementById('heatmap');
+const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const hours = ['06','08','10','12','14','16','18','20','22'];
+const intensity = {
+  '06':[1,1,1,1,1,2,2,2,1],
+  '08':[2,2,2,2,2,3,3,3,2],
+  '10':[2,2,2,2,2,4,4,3,2],
+  '12':[3,3,3,3,4,3,3,3,2],
+  '14':[2,2,3,3,3,2,3,3,2],
+  '16':[3,3,3,4,5,4,4,3,2],
+  '18':[5,5,5,6,8,6,6,5,3],
+  '20':[7,7,8,9,10,8,8,7,4],
+  '22':[5,5,6,7,8,6,6,5,3],
+  '00':[3,3,3,4,5,4,4,3,2]
+};
+const colors = ['#F1EFE8','#FAC775','#EF9F27','#D85A30','#993C1D','#71250f'];
+function hmColor(v) { return colors[Math.min(Math.floor(v/2),5)]; }
+hm.innerHTML += '<div class="hm-cell hm-label"></div>' + days.map(d=>`<div class="hm-cell hm-label" style="justify-content:center;font-size:10px;color:${textColor};">${d}</div>`).join('');
+hours.forEach((h,hi)=>{
+  hm.innerHTML += `<div class="hm-cell hm-label" style="font-size:10px;color:${textColor};">${h}:00</div>`;
+  days.forEach((_,di)=>{
+    const v = Object.values(intensity)[hi][di];
+    hm.innerHTML += `<div class="hm-cell" style="background:${hmColor(v)};"></div>`;
+  });
+});
+</script>
